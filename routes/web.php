@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function() {
     Route::delete('/product/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('destroy');
     Route::get('/product/add', [App\Http\Controllers\ProductController::class, 'addProduct'])->name('addProduct');
     Route::post('/product/add/proses', [App\Http\Controllers\ProductController::class, 'add'])->name('addProductProses');
+    Route::get('/product/barcode',  [App\Http\Controllers\ProductController::class, 'printBarcode']);
     
     Route::get('/edit/{product}', [App\Http\Controllers\ProductController::class, 'edit'])->name('edit');
     Route::patch('/edit/{product}', [App\Http\Controllers\ProductController::class, 'update'])->name('update');
@@ -60,7 +61,8 @@ Route::middleware(['auth'])->group(function() {
         // $tes = Auth::user();
         // dd($tes);
     });
-    
     // Route Transactions Menggunakan Livewire
     //Route Livewire
 });
+
+Route::get('/transactions/create', Create::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Svg\Tag\Rect;
@@ -163,5 +164,14 @@ class ProductController extends Controller
             DB::rollBack();
             return redirect()->back()->with('status', 'Tambah produk Gagal');
         }
+    }
+
+    public function printBarcode()
+    {
+        $product = Product::limit(12)->get();
+        $no =1;
+        $pdf = \PDF::loadView('product.printBarcode', compact('product', 'no'));
+        $pdf->setPaper('a4', 'potrait');
+        return $pdf->stream();
     }
 }
